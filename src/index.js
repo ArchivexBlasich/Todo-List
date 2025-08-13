@@ -1,5 +1,10 @@
+import "./style.css";
 import project_controller from "./project/projects-controller.js";
 import todoController from "./todo/todo-controller.js";
+
+import domProject from "./dom/project/project.js";
+
+domProject;
 
 let todo_controller = todoController(project_controller.getCurrentProject());
 console.log(todo_controller.currentProject);
@@ -49,3 +54,4 @@ let todo4 = {
 todo_controller.addTodo(todo4);
 
 console.log(project_controller.projects);
+
