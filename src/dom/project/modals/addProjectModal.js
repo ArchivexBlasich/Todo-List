@@ -1,6 +1,6 @@
 import {createNewElement} from "../../../utils/utils.js"
 
-export default function projectModals() {
+export default function addProjectModal() {
     // variables
     const addProjectBtn = document.querySelector(".navbar button.add");
     const addProjectDialog = document.querySelector("#addProject");
@@ -24,6 +24,7 @@ export default function projectModals() {
         if (input.value) {
             const newProjectList = createItem(input.value);
             nav.appendChild(newProjectList);
+            input.value = "";
             closeDialog();
         }
     }

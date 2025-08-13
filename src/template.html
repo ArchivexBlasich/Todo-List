@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
     <script src="https://kit.fontawesome.com/eed0a14383.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <nav class="navbar">
         <h2><i class="fa-solid fa-folder-open"></i>Projects</h2>
@@ -14,8 +16,8 @@
             <dialog id="addProject">
                 <form action="">
                     <div>
-                        <label for="project-name">Project Name:</label>
-                        <input type="text" id="project-name" minlength="1">
+                        <label for="project-add-name">Project Name:</label>
+                        <input type="text" id="project-add-name" name="project-add-name" minlength="1">
                     </div>
                     <div>
                         <button type="button">Create</button>
@@ -24,13 +26,27 @@
                 </form>
             </dialog>
             <button class="remove"><i class="fa-solid fa-minus"></i></button>
+            <dialog id="removeProject">
+                <form action="">
+                    <div>
+                        <label for="project-remove">Project to delate:</label>
+                        <select name="project-remove" id="project-remove">
+
+                        </select>
+                    </div>
+                    <div>
+                        <button type="button">Delete</button>
+                        <button type="button">Cancel</button>
+                    </div>
+                </form>
+            </dialog>
         </div>
         <ul class="navbar-nav">
-            <li class="nav-item"><span>Hola</span></li>
         </ul>
     </nav>
     <main class="todos">
-        
+
     </main>
 </body>
+
 </html>

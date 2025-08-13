@@ -83,6 +83,7 @@ dialog form{
     padding: 10px;
 }
 
+#removeProject select,
 dialog form  input{
     outline: none;
     background-color: var(--card-color);
@@ -91,6 +92,7 @@ dialog form  input{
     width: 100%;
 }
 
+#removeProject form button,
 #addProject form button {
     padding: 0.5rem 1rem;
     border: 2px solid var(--main-color);
@@ -101,6 +103,7 @@ dialog form  input{
     align-items: center;
 }
 
+#removeProject div:last-of-type,
 #addProject div:last-of-type {
     align-self: flex-end;
     margin-top: 1rem;
@@ -113,7 +116,7 @@ dialog form  input{
     background-color: var(--side-nav-icons-color);
     color: var(--side-nav-color);
     height: 100vh;
-    min-width: 15vw;
+    min-width: 10rem;
 
     display: flex;
     flex-direction: column;
