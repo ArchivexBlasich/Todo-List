@@ -1,4 +1,5 @@
 import { createNewElement } from "../../../utils/utils";
+import { events } from "../../../utils/pubsub";
 
 export default function addTodoModal() {
     // variables
@@ -29,16 +30,16 @@ export default function addTodoModal() {
         if (titleInput.value && priorityInput
             && dueDateInput.validity.valid === true
         ) {
-            console.log(titleInput.value);
-            console.log(priorityInput.value);
-            console.log(dueDateInput.value);
-            console.log(descriptionInput.value);
+            let todo = {
+                title: titleInput.value, 
+                description: descriptionInput.value, 
+                dueDate: dueDateInput.value, 
+                priority: priorityInput.value,
+            }
 
-            todosContainer.appendChild(createTodo(titleInput.value, 
-                descriptionInput.value, 
-                dueDateInput.value,
-                priorityInput.value));
+            todosContainer.appendChild(createTodo(todo));
 
+            events.emit("newTodo", todo)
             closeDialog();
         }
 
@@ -49,7 +50,7 @@ export default function addTodoModal() {
     }
 }
 
-function createTodo(title, description, dueDate, priority) {
+export function createTodo(todo) {
     let article = createNewElement("article");
     let heading = createNewElement("h1");
     let date = createNewElement("div");
@@ -57,11 +58,11 @@ function createTodo(title, description, dueDate, priority) {
     let deleteBtn = createNewElement("button");
     let deleteIcon = createNewElement("i");
 
-    heading.textContent = title;
+    heading.textContent = todo.title;
 
-    date.innerHTML = `<i class="fa-solid fa-calendar"></i>${dueDate}`
+    date.innerHTML = `<i class="fa-solid fa-calendar"></i>${todo.dueDate}`
 
-    desc.textContent = description;
+    desc.textContent = todo.description;
 
     deleteIcon.classList.add("fa-solid");
     deleteIcon.classList.add("fa-trash");
@@ -70,6 +71,7 @@ function createTodo(title, description, dueDate, priority) {
 
     deleteBtn.addEventListener("click", (e) => {
         e.currentTarget.parentElement.remove();
+        events.emit("removeTodo", todo);
     })
 
     article.appendChild(heading);
@@ -77,7 +79,7 @@ function createTodo(title, description, dueDate, priority) {
     article.appendChild(desc);
     article.appendChild(deleteBtn);
 
-    setPriorityBackground(article, priority);
+    setPriorityBackground(article, todo.priority);
 
     return article;
 }

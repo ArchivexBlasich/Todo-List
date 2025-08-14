@@ -181,6 +181,7 @@ dialog form  input {
 
 .navbar ul li span{
     margin-left: 1rem;
+    cursor: pointer;
 }
 
 main {
@@ -250,5 +251,14 @@ main {
     align-self: flex-end;
     background: none;
     border: none;
+}
+
+.current-project {
+    background-color: var(--side-nav-color);
+    font-weight: 700;
+}
+
+.current-project span {
+    color: var(--side-nav-icons-color);
 }
 

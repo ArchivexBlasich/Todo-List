@@ -1,16 +1,29 @@
 import Project from "./project";
+import { events } from "../utils/pubsub";
+
 
 const project_controller = (function() {
     let projects = [];
-    projects.push(new Project("Default"));
+
+    // bind events
+    events.on("newProject", addProject);
+    events.on("newSelectedProject", setCurrentProject);
+
+    function init() {
+        projects.push(new Project("Default"));
+        events.emit("projectInit", projects[0]);
+        events.emit("newCurrentProject", projects[0]);
+    }
 
     function addProject(name) {
         let projectWithSameName = (project) => project.name === name;
 
         if (!projects.some(projectWithSameName)) {
-            projects.push(new Project(name));
+            let newProject = new Project(name);
+            projects.push(newProject);
+            events.emit("newCurrentProject", newProject);
         } else {
-            console.log("Already exits an project with that name");
+            console.error("Already exits an project with that name");
         }
     };
 
@@ -22,15 +35,21 @@ const project_controller = (function() {
         projects.map(project => console.log(project));
     }
 
-    function getCurrentProject() {
-        return projects.at(-1);
+    function setCurrentProject(name) {
+        for (const project of projects) {
+            if (project.name === name) {
+                events.emit("newCurrentProject", project);
+                return;
+            }
+        }
     }
+
+    init()
 
     return {
         addProject,
         removeProject,
         showProjects,
-        getCurrentProject, 
         projects,
     }
 }) ();
