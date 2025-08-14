@@ -2,9 +2,8 @@ import "./style.css";
 import project_controller from "./project/projects-controller.js";
 import todoController from "./todo/todo-controller.js";
 
-import domProject from "./dom/project/project.js";
-
-domProject;
+import domController from "./dom/dom-controller.js";
+domController();
 
 let todo_controller = todoController(project_controller.getCurrentProject());
 console.log(todo_controller.currentProject);

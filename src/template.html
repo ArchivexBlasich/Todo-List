@@ -44,8 +44,37 @@
         <ul class="navbar-nav">
         </ul>
     </nav>
-    <main class="todos">
+    <main>
+        <button class="remove"><i class="fa-solid fa-plus"></i></button>
+        <dialog id="add-todo-dialog">
+            <form action="">
+                <label for="add-modal-title">Title:</label>
+                <input type="text" id="add-modal-title" name="add-modal-title" required>
 
+                <label for="add-modal-priority">Priority: (1 hight - 5 low)</label>
+                <select name="add-modal-priority" id="add-modal-priority">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+
+                <label for="add-modal-dueDate">Due Date:
+                    <input type="date" id="add-modal-dueDate" name="add-modal-dueDate" required>
+                </label>
+
+                <label for="add-modal-description">Description:</label>
+                <textarea name="add-modal-description" id="add-modal-description" cols="10" rows="20"></textarea>
+
+                <div>
+                    <button type="button">Create</button>
+                    <button type="button">Cancel</button>
+                </div>
+            </form>
+        </dialog>
+        <section class="todos-container">
+        </section>
     </main>
 </body>
 
