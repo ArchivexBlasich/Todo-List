@@ -7,15 +7,18 @@ const projectDOM = function() {
     removeProjectModal();
 
     // bind event
-    events.on("projectInit", init)
+    events.on("projectInit", render)
 
-    function init(project) {
+    function render(projects) {
         let nav = document.querySelector(".navbar-nav");
-        let newProject = createItem(project.name);
-        newProject.classList.toggle('current-project')
 
-        nav.appendChild(newProject);
+        projects.map((project, index) => {
+            let newProject = createItem(project.name);
+            if (index === 0) newProject.classList.toggle('current-project');
+            nav.appendChild(newProject);
+        }); 
     }
+
 };
 
 export default projectDOM;

@@ -2,7 +2,7 @@ import Project from "./project";
 import { events } from "../utils/pubsub";
 
 
-const project_controller = (function() {
+const project_controller = (function () {
     let projects = [];
 
     // bind events
@@ -11,7 +11,8 @@ const project_controller = (function() {
 
     function init() {
         projects.push(new Project("Default"));
-        events.emit("projectInit", projects[0]);
+        loadStorage();
+        events.emit("projectInit", projects);
         events.emit("newCurrentProject", projects[0]);
     }
 
@@ -44,14 +45,36 @@ const project_controller = (function() {
         }
     }
 
-    init()
+    function loadStorage() {
+        if (localStorage.length === 0) {
+            return;
+        }
 
-    return {
-        addProject,
-        removeProject,
-        showProjects,
-        projects,
+        const allLocalStorageItems = {};
+        Object.keys(localStorage).forEach(key => {
+            allLocalStorageItems[key] = localStorage.getItem(key);
+        });
+
+        for (const key in allLocalStorageItems) {
+            if (Object.prototype.hasOwnProperty.call(allLocalStorageItems, key)) {
+                const element = JSON.parse(allLocalStorageItems[key]);
+                
+                if (!projects.some((project => project.name === element.project))) {
+                    let newProject = new Project(element.project);
+                    newProject.todo_list.push(element);
+                    projects.push(newProject);
+                } else {
+                    for (const project of projects) {
+                        if (project.name === element.project) {
+                            project.todo_list.push(element);
+                        }
+                    }
+                }
+            }
+        }
     }
-}) ();
+
+    init();
+})();
 
 export default project_controller;
