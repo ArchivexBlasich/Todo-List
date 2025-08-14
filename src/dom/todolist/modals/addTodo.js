@@ -31,15 +31,19 @@ export default function addTodoModal() {
             && dueDateInput.validity.valid === true
         ) {
             let todo = {
-                title: titleInput.value, 
-                description: descriptionInput.value, 
-                dueDate: dueDateInput.value, 
+                title: titleInput.value,
+                description: descriptionInput.value,
+                dueDate: dueDateInput.value,
                 priority: priorityInput.value,
             }
 
             todosContainer.appendChild(createTodo(todo));
 
             events.emit("newTodo", todo)
+            titleInput.value = "";
+            descriptionInput.value = "";
+            dueDateInput.value = "";
+            priorityInput.value = "";
             closeDialog();
         }
 
@@ -85,13 +89,13 @@ export function createTodo(todo) {
 }
 
 function setPriorityBackground(element, priority) {
-  // Base color (red in this case)
-  const baseColor = '114, 137, 154';
+    // Base color (red in this case)
+    const baseColor = '114, 137, 154';
 
-  const maxOpacity = 0.7;
-  const minOpacity = 0;
+    const maxOpacity = 0.7;
+    const minOpacity = 0;
 
-  const opacity = maxOpacity - ((priority - 1) * (maxOpacity - minOpacity) / 4);
+    const opacity = maxOpacity - ((priority - 1) * (maxOpacity - minOpacity) / 4);
 
-  element.style.backgroundColor = `rgba(${baseColor}, ${opacity})`;
+    element.style.backgroundColor = `rgba(${baseColor}, ${opacity})`;
 }

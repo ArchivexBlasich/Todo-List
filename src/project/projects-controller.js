@@ -8,6 +8,7 @@ const project_controller = (function () {
     // bind events
     events.on("newProject", addProject);
     events.on("newSelectedProject", setCurrentProject);
+    events.on("removeProject", removeProject);
 
     function init() {
         projects.push(new Project("Default"));
@@ -29,6 +30,7 @@ const project_controller = (function () {
     };
 
     function removeProject(name) {
+        removeProjectLocalStorage(name);
         projects = projects.filter(project => project.name !== name);
     }
 
@@ -58,7 +60,7 @@ const project_controller = (function () {
         for (const key in allLocalStorageItems) {
             if (Object.prototype.hasOwnProperty.call(allLocalStorageItems, key)) {
                 const element = JSON.parse(allLocalStorageItems[key]);
-                
+
                 if (!projects.some((project => project.name === element.project))) {
                     let newProject = new Project(element.project);
                     newProject.todo_list.push(element);
@@ -69,6 +71,23 @@ const project_controller = (function () {
                             project.todo_list.push(element);
                         }
                     }
+                }
+            }
+        }
+    }
+
+    function removeProjectLocalStorage(name) {
+        const allLocalStorageItems = {};
+        Object.keys(localStorage).forEach(key => {
+            allLocalStorageItems[key] = localStorage.getItem(key);
+        });
+
+        for (const key in allLocalStorageItems) {
+            if (Object.prototype.hasOwnProperty.call(allLocalStorageItems, key)) {
+                const element = JSON.parse(allLocalStorageItems[key]);
+
+                if (element.project === name) {
+                    localStorage.removeItem(`${element.project}${element.title}`); 
                 }
             }
         }

@@ -1,3 +1,5 @@
+import { events } from "../../../utils/pubsub";
+
 export default function removeProjectModal() {
     // variables
     const removeProjectBtn = document.querySelector(".navbar button.remove");
@@ -30,8 +32,10 @@ export default function removeProjectModal() {
         for (const option of nav.children) {
             if (select.value === option.dataset.name) {
                 option.remove();
+                events.emit("removeProject", select.value);
             }
         }
+
         closeDialog();
     }
 
