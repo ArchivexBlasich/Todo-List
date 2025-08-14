@@ -237,11 +237,12 @@ main {
 
 .todos-container article:hover {
     top: -2px;
+    box-shadow: #b147d17a 1.95px 1.95px 2.6px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .todos-container article > :nth-child(-n + 2) {
-    border-bottom: 1px solid var(--card-color);
+    border-bottom: 1px solid var(--side-nav-icons-color);
 }
 
 .todos-container article button {

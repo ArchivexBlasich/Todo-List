@@ -68,10 +68,28 @@ function createTodo(title, description, dueDate, priority) {
     deleteBtn.appendChild(deleteIcon);
     deleteBtn.classList.add("remove");
 
+    deleteBtn.addEventListener("click", (e) => {
+        e.currentTarget.parentElement.remove();
+    })
+
     article.appendChild(heading);
     article.appendChild(date);
     article.appendChild(desc);
     article.appendChild(deleteBtn);
 
+    setPriorityBackground(article, priority);
+
     return article;
+}
+
+function setPriorityBackground(element, priority) {
+  // Base color (red in this case)
+  const baseColor = '114, 137, 154';
+
+  const maxOpacity = 0.7;
+  const minOpacity = 0;
+
+  const opacity = maxOpacity - ((priority - 1) * (maxOpacity - minOpacity) / 4);
+
+  element.style.backgroundColor = `rgba(${baseColor}, ${opacity})`;
 }
